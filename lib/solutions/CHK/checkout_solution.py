@@ -149,16 +149,16 @@ class Checkout:
         if str(counts) in self.best_price_cache:
             return self.best_price_cache[str(counts)]
 
-        if max(counts.values()) == 0:
-            self.best_price_cache = {str(counts): 0}
-            return self.best_price_cache[str(counts)]
-
         # Optimise by removing items with no offers
         pre_count = 0
         for k, v in counts.items():
             if k not in self.has_offers:
                 pre_count += counts[k] * self.basic_prices[k]
                 counts[k] = 0
+
+        if max(counts.values()) == 0:
+            self.best_price_cache = {str(counts): 0}
+            return self.best_price_cache[str(counts)]
 
         running_prices = []
         for basket_key, basket_price in self.price_table.items():
@@ -198,7 +198,6 @@ class Checkout:
                 if name in self.item_names:
                     self.has_offers.add(name)
                 self.item_names.add(name)
-        print(self.has_offers)
 
     def parse_SKUs(self, skus: str) -> Dict[str, int]:
         counts = {name: 0 for name in self.item_names}
@@ -207,6 +206,7 @@ class Checkout:
                 raise ValueError("SKUs should only contain letters that we stock.")
             counts[c] += 1
         return counts
+
 
 
 
