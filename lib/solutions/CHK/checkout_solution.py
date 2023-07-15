@@ -155,7 +155,7 @@ class Checkout:
         running_prices = []
         for basket_key, basket_price in self.price_table.items():
             basket = self.basket_dicts[basket_key]
-            if self.is_subset(basket, counts):
+            if basket.items() <= counts.items():
                 remainder = self.subtract(basket, counts)
                 remainder_price = self.get_best_price_all(remainder)
                 running_prices.append(basket_price + remainder_price)
@@ -194,5 +194,6 @@ class Checkout:
                 raise ValueError("SKUs should only contain letters that we stock.")
             counts[c] += 1
         return counts
+
 
 
