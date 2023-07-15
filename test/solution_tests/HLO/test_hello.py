@@ -1,9 +1,7 @@
-from solutions.SUM import sum_solution
+from solutions.HLO import hello_solution
 
 
-class TestSum():
-    def test_sum(self):
-        assert sum_solution.compute(0, 0) == 0
-        assert sum_solution.compute(1, 2) == 3
-        assert sum_solution.compute(-1, -2) == -3
-        assert sum_solution.compute(-11, 11) == 0
+class TestHello():
+    def test_hello(self):
+        assert hello_solution.hello("Ben") == "Hello Ben"
+        assert hello_solution.hello("Shirley") == "Hello Shirley"
