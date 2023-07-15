@@ -9,12 +9,15 @@ def checkout(skus):
 
 def get_best_price_all(
         counts: Dict[str, int],
-        offers: Dict[str, Tuple[int, int]]
+        offers: Dict[str, Dict[int, int]]
         ) -> int:
     # Counts is a dictionary of "item": count
-    # Offers is a dictionary of "item": offer_price
-    # Where offer ratio is e.g. (1, 2) if we get 2-for-1
+    # Offers is a dictionary of "item": offer_info
+    # Where offer info is parsed to e.g.
+    # 3A for 130 => {"count": 3, "price": 130}
     raise NotImplementedError()
     
 
 def get_best_price(count, offer):
+
+
