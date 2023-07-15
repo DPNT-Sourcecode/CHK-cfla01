@@ -51,7 +51,7 @@ def checkout_r1(skus):
 class Checkout:
     def __init__(
             self,
-            price_table: Dict[str, Dict]
+            price_table: Dict[Tuple, int]
             ):
         self.price_table = price_table
         self.parse_item_names()
@@ -76,11 +76,22 @@ class Checkout:
         self.best_price_cache[counts] = min(running_prices)
         return self.best_price_cache[counts]
 
+    def is_subset(self, smaller_set, larger_set):
+        for k, v in smaller_set.items():
+            if v > larger_set[k]:
+                return False
+        return True
+
+    def substract(self, smaller_set, larger_set):
+        new_set = {k: v for k, v in larger_set.items()}
+        for k, v in smaller_set.items():
+            new_set[k] -= v
+        return new_set
+
     def parse_basket_dicts(self):
         self.basket_dicts = {}
         for k, _ in self.price_table.keys():
             self.basket_dicts[k] = {name: count for name, count in k}
-
 
     def parse_item_names(self):
         self.item_names = set()
@@ -95,6 +106,7 @@ class Checkout:
                 raise ValueError("SKUs should only contain letters that we stock.")
             counts[c] += 1
         return counts
+
 
 
 
