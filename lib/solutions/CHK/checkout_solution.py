@@ -98,7 +98,7 @@ class Checkout:
                 current = self.price_table[item_name][multiple]
                 running_prices.append(remaining + current)
         self.best_price_cache[item_name][count] = min(running_prices)
-        return min(running_prices)
+        return self.best_price_cache[item_name][count]
 
     def get_best_price_all(
             self,
@@ -121,6 +121,7 @@ class Checkout:
                 raise ValueError("SKUs should only contain letters that we stock.")
             counts[c] += 1
         return counts
+
 
 
 
