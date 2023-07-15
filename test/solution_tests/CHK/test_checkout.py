@@ -31,7 +31,7 @@ class TestCheckout():
         assert checkout_solution.checkout("HHHHHKKNNNM") == 45 + 150 + 120
         assert checkout_solution.checkout("PPPPPQQQQRRR") == 200 + 80 + 150
         assert checkout_solution.checkout("UUUVVV") == 120 + 130
-        #assert checkout_solution.checkout("ABCDEFGHIJKLMNOPQRSTUVWXYZ") > 0
+        assert checkout_solution.checkout("ABCDEFGHIJKLMNOPQRSTUVWXYZ") > 0
 
     def test_checkout_r3(self):
         assert checkout_solution.checkout_r3("AF") == 50 + 10
