@@ -8,3 +8,7 @@ class TestCheckout():
             checkout_solution.checkout("")
 
     def test_get_best_price_all(self):
+        ass
+
+    def test_get_best_price_all(self):
+        ass
