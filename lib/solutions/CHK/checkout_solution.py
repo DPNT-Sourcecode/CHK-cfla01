@@ -54,14 +54,15 @@ class Checkout:
             price_table: Dict[str, Dict]
             ):
         self.price_table = price_table
-        self.parse_keys()
+        self.parse_item_names()
+        self.parse_basket_keys()
         self.best_price_cache = {}
 
     def get_best_price_all(
             self,
             item_name: str,
             counts: int
-            ):
+            ) -> int:
 
         if counts in self.best_price_cache:
             return self.best_price_cache[counts]
@@ -75,10 +76,10 @@ class Checkout:
         self.best_price_cache[item_name][count] = min(running_prices)
         return self.best_price_cache[item_name][count]
 
-    def convert_item_key_to_dict(
-            self,
-            basket_key,
-    ):
+    def parse_basket_keys(self):
+        self.basket_keys = {}
+        for k, _ in self.price_table.keys():
+
 
     def parse_item_names(self):
         self.item_names = set()
@@ -93,3 +94,4 @@ class Checkout:
                 raise ValueError("SKUs should only contain letters that we stock.")
             counts[c] += 1
         return counts
+
