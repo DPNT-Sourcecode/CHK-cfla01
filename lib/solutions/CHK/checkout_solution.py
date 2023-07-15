@@ -137,6 +137,11 @@ def chk_r5_info():
         (("V", 3),): 130,
         (("V", 2),): 90,
         (("W", 1),): 20,
+        (("Z", 1),): 21,
+        (("S", 1),): 20,
+        (("T", 1),): 20,
+        (("Y", 1),): 20,
+        (("X", 1),): 19,
     }
     return info
 
@@ -246,10 +251,9 @@ class Checkout:
             else:
                 self.special_counts[k] -= counter
                 counter = 0
-        remain_price = sum([counts[k] * self.basic_prices[k]
+        remain_price = sum([self.special_counts[k] * self.special_prices[k]
                             for k in self.special_counts.keys()])
-        
-        
+        return buy3value + remain_price
 
     def offer_basic_price(self, offer_key):
         counts = self.basket_dicts[offer_key]
@@ -296,6 +300,7 @@ class Checkout:
                 raise ValueError("SKUs should only contain letters that we stock.")
             counts[c] += 1
         return counts
+
 
 
 
