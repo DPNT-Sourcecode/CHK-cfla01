@@ -55,7 +55,7 @@ class Checkout:
             ):
         self.price_table = price_table
         self.parse_item_names()
-        self.parse_basket_keys()
+        self.parse_basket_dicts()
         self.best_price_cache = {}
 
     def get_best_price_all(
@@ -69,16 +69,19 @@ class Checkout:
 
         running_prices = []
         for basket_key in self.price_table.keys():
-            if count >= multiple:
+            basket = self.basket_dicts[basket_key]
+            if self.is_subset(basket, counts):
+                remainder = self.subtract(basket, counts)
                 remaining = self.get_best_price(item_name, count - multiple)
                 current = self.price_table[item_name][multiple]
                 running_prices.append(remaining + current)
         self.best_price_cache[item_name][count] = min(running_prices)
         return self.best_price_cache[item_name][count]
 
-    def parse_basket_keys(self):
-        self.basket_keys = {}
+    def parse_basket_dicts(self):
+        self.basket_dicts = {}
         for k, _ in self.price_table.keys():
+            self.basket_dicts[k] = {name: count for name, count in k}
 
 
     def parse_item_names(self):
@@ -94,4 +97,5 @@ class Checkout:
                 raise ValueError("SKUs should only contain letters that we stock.")
             counts[c] += 1
         return counts
+
 
