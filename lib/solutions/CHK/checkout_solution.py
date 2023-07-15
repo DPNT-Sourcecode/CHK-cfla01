@@ -2,13 +2,15 @@ from typing import Dict, Tuple
 
 
 def chk_r1_info():
-    info = {
+    prices = {
         (("A", 1),): 50,
-        (("A", 3),): 130,
         (("B", 1),): 30,
-        (("B", 2),): 45,
         (("C", 1),): 20,
         (("D", 1),): 15,
+    }
+    offers = {
+        (("A", 3),): 130,
+        (("B", 2),): 45,
     }
     return info
 
