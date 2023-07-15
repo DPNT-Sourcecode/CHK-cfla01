@@ -20,7 +20,7 @@ def checkout(skus):
         "D": info_D,
     }
 
-    chk_r1 = checkout_solution.Checkout(info)
+    chk_r1 = Checkout(info)
     return 0
 
 
@@ -65,4 +65,5 @@ class Checkout:
             for name, count in counts.items()
         ]
         return sum(best_prices)
+
 

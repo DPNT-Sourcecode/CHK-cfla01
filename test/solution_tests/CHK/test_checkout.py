@@ -26,8 +26,7 @@ def chk_r1():
 
 class TestCheckout():
     def test_checkout(self):
-        with pytest.raises(Exception):
-            checkout_solution.checkout("")
+        assert checkout_solution.checkout("") == 0
 
     def test_get_best_price_all(self, chk_r1):
         counts = {
