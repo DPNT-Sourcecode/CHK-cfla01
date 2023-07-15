@@ -1,5 +1,6 @@
 import pytest
 from solutions.CHK import checkout_solution
+from solutions.price_tables import chk_r1_info, chk_r2_info
 
 
 @pytest.fixture
@@ -59,7 +60,5 @@ class TestCheckout():
         assert chk_r1.get_best_price("A", 4) == 180
 
     def test_mulitple_offers(self, chk_r2):
-        assert chk_r1.get_best_price("A", 0) == 0
-        assert chk_r1.get_best_price("A", 2) == 100
-        assert chk_r1.get_best_price("A", 3) == 130
-        assert chk_r1.get_best_price("A", 4) == 180
+        expected_price_9xA = 50 + 130 + 200
+        assert chk_r2.get_best_price("A", 9) == expected_price_9xA
