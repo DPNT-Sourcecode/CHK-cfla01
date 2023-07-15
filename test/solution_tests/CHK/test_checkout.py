@@ -27,12 +27,17 @@ def chk_r3():
 
 
 class TestCheckout():
+    def test_checkout_r4(self):
+        assert checkout_solution.checkout("HHHHHKKNNNM") == 45 + 150 + 120
+        assert checkout_solution.checkout("PPPPPQQQQRRR") == 200 + 80 + 150
+        assert checkout_solution.checkout("UUUVVV") == 120 + 130
+
     def test_checkout_r3(self):
-        assert checkout_solution.checkout("AF") == 50 + 10
-        assert checkout_solution.checkout("AFF") == 50 + 20
-        assert checkout_solution.checkout("AFFF") == 50 + 20
-        assert checkout_solution.checkout("AFFFFF") == 50 + 20 + 20
-        assert checkout_solution.checkout("AFFFFFF") == 50 + 20 + 20
+        assert checkout_solution.checkout_r3("AF") == 50 + 10
+        assert checkout_solution.checkout_r3("AFF") == 50 + 20
+        assert checkout_solution.checkout_r3("AFFF") == 50 + 20
+        assert checkout_solution.checkout_r3("AFFFFF") == 50 + 20 + 20
+        assert checkout_solution.checkout_r3("AFFFFFF") == 50 + 20 + 20
 
     def test_checkout_r2(self):
         assert checkout_solution.checkout_r2("AAAAA") == 200
@@ -74,4 +79,5 @@ class TestCheckout():
             + (5 * 15)
         )
         assert chk_r1.get_best_price_all(counts) == correct_answer
+
 

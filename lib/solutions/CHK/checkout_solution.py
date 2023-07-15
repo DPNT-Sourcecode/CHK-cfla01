@@ -83,6 +83,7 @@ def chk_r4_info():
         (("U", 4),): 120,
         (("V", 1),): 50,
         (("V", 2),): 90,
+        (("V", 3),): 130,
         (("W", 1),): 20,
         (("X", 1),): 90,
         (("Y", 1),): 10,
@@ -191,5 +192,6 @@ class Checkout:
                 raise ValueError("SKUs should only contain letters that we stock.")
             counts[c] += 1
         return counts
+
 
 
