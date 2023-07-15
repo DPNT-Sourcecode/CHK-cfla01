@@ -29,6 +29,7 @@ def chk_r3():
 class TestCheckout():
     def test_checkout_r5(self):
         assert checkout_solution.checkout("STX") == 45
+        assert checkout_solution.checkout("XZZXZ") == 45 + 17 + 17
 
     def test_checkout_r4(self):
         assert checkout_solution.checkout_r4("HHHHHKKNNNM") == 45 + 150 + 120
