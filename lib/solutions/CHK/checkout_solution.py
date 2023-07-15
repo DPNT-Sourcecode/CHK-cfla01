@@ -3,23 +3,27 @@ from typing import Dict, Tuple
 
 def chk_r1_info():
     info = {
-        ("A", 1): 50,
-        ("A", 3): 130,
-        ("B", 1): 30,
-        ("B", 2): 45,
-        ("C", 1): 20,
-        ("D", 1): 15,
+        (("A", 1)): 50,
+        (("A", 3)): 130,
+        (("B", 1)): 30,
+        (("B", 2)): 45,
+        (("C", 1)): 20,
+        (("D", 1)): 15,
     }
     return info
 
 
 def chk_r2_info():
     info = {
-        "A": {1: 50, 3: 130, 5: 200},
-        "B": {1: 30, 2: 45},
-        "C": {1: 20},
-        "D": {1: 15},
-        "E": {1: 40, 2: 40},
+        (("A", 1)): 50,
+        (("A", 3)): 130,
+        (("A", 5)): 200,
+        (("B", 1)): 30,
+        (("B", 2)): 45,
+        (("C", 1)): 20,
+        (("D", 1)): 15,
+        (("E", 1)): 40,
+        (("E", 2), ("B", 1)): 40,
     }
     return info
 
@@ -82,12 +86,10 @@ class Checkout:
         return sum(best_prices)
 
     def parse_SKUs(self, skus: str) -> Dict[str, int]:
-        # if input only contains letters that we stock,
-        # return a dictionary of counts. Else raise
-        # a ValueError
         counts = {name: 0 for name in self.price_table.keys()}
         for c in skus:
             if c not in counts:
                 raise ValueError("SKUs should only contain letters that we stock.")
             counts[c] += 1
         return counts
+
