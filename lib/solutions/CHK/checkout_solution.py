@@ -86,9 +86,14 @@ class Checkout:
             item_name: str,
             count: int
             ):
+        if count == 0:
+            return 0
         running_prices = []
-        for multiple in price_table.keys():
+        for multiple in self.price_table[item_name].keys():
             if count >= multiple:
+                remaining = self.get_best_price(item_name, count - multiple)
+                running_prices.append(self.price)
+                
         return min(running_prices)
 
 
@@ -113,4 +118,5 @@ class Checkout:
                 raise ValueError("SKUs should only contain letters that we stock.")
             counts[c] += 1
         return counts
+
 
