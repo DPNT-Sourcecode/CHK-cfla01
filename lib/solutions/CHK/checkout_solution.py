@@ -26,7 +26,7 @@ def chk_r2_info():
     info_C = {"count": 5, "price": 20, "offer": {}}
     info_D = {"price": 15, "offer": {}}
     offer_E = {"multi": 2, "price": 40}
-    info_E = {"price": 40, "offer": {}}
+    info_E = {"price": 40, "offer": [offer_E]}
     info = {
         "A": info_A,
         "B": info_B,
