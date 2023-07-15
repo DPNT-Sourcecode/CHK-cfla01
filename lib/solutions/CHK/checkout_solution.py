@@ -25,10 +25,11 @@ def chk_r2_info():
         "E": 40,
     }
     offers = {
-        (("A", 3),): 130,
-        (("A", 5),): 200,
-        (("B", 2),): 45,
-        (("E", 2), ("B", 1)): 80,
+        # offer: saving
+        (("A", 5),): 50,
+        (("E", 2), ("B", 1)): 30,
+        (("A", 3),): 20,
+        (("B", 2),): 15,
     }
     return prices, offers
 
@@ -43,11 +44,12 @@ def chk_r3_info():
         "F": 10,
     }
     offers = {
-        (("A", 3),): 130,
-        (("A", 5),): 200,
-        (("B", 2),): 45,
-        (("E", 2), ("B", 1)): 80,
-        (("F", 3),): 20,
+        # offer: saving
+        (("A", 5),): 50,
+        (("E", 2), ("B", 1)): 30,
+        (("A", 3),): 20,
+        (("B", 2),): 15,
+        (("F", 3),): 10,
     }
     return prices, offers
 
@@ -190,6 +192,7 @@ class Checkout:
                 raise ValueError("SKUs should only contain letters that we stock.")
             counts[c] += 1
         return counts
+
 
 
 
