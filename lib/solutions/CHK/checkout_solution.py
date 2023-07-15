@@ -56,7 +56,7 @@ class Checkout:
         self.price_table = price_table
         self.parse_item_names()
         self.parse_basket_dicts()
-        self.best_price_cache = {}
+        self.best_price_cache = {'{}': 0}
 
     def get_best_price_all(
             self,
@@ -64,6 +64,9 @@ class Checkout:
             ) -> int:
 
         if counts in self.best_price_cache:
+            return self.best_price_cache[counts]
+
+        if counts == {} or max(counts.values() == 0):
             return self.best_price_cache[counts]
 
         running_prices = []
@@ -82,7 +85,7 @@ class Checkout:
                 return False
         return True
 
-    def substract(self, smaller_set, larger_set):
+    def subtract(self, smaller_set, larger_set):
         new_set = {k: v for k, v in larger_set.items()}
         for k, v in smaller_set.items():
             new_set[k] -= v
@@ -106,6 +109,7 @@ class Checkout:
                 raise ValueError("SKUs should only contain letters that we stock.")
             counts[c] += 1
         return counts
+
 
 
 
