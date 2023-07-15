@@ -103,7 +103,8 @@ def chk_r4_info():
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus):
-    chk_r4 = Checkout(chk_r4_info())
+    prices, offers = chk_r4_info()
+    chk_r4 = Checkout(prices, offers)
     try:
         counts = chk_r4.parse_SKUs(skus)
     except ValueError:
@@ -112,7 +113,8 @@ def checkout(skus):
 
 
 def checkout_r3(skus):
-    chk_r3 = Checkout(chk_r3_info())
+    prices, offers = chk_r3_info()
+    chk_r3 = Checkout(prices, offers)
     try:
         counts = chk_r3.parse_SKUs(skus)
     except ValueError:
@@ -121,7 +123,8 @@ def checkout_r3(skus):
 
 
 def checkout_r2(skus):
-    chk_r2 = Checkout(chk_r2_info())
+    prices, offers = chk_r2_info()
+    chk_r2 = Checkout(prices, offers)
     try:
         counts = chk_r2.parse_SKUs(skus)
     except ValueError:
@@ -130,7 +133,8 @@ def checkout_r2(skus):
 
 
 def checkout_r1(skus):
-    chk_r1 = Checkout(chk_r1_info())
+    prices, offers = chk_r1_info()
+    chk_r1 = Checkout(prices, offers)
     try:
         counts = chk_r1.parse_SKUs(skus)
     except ValueError:
@@ -141,12 +145,13 @@ def checkout_r1(skus):
 class Checkout:
     def __init__(
             self,
-            price_table: Dict[Tuple, int]
+            prices,
+            offers,
             ):
-        self.price_table = price_table
+        self.prices = prices
+        self.offers = offers
         self.parse_item_names()
         self.parse_basket_dicts()
-        self.best_price_cache = {'{}': 0}
 
     def get_best_price_all(
             self,
@@ -176,29 +181,13 @@ class Checkout:
                 return False
         return True
 
-    def subtract(self, smaller_set, larger_set):
-        new_set = {k: v for k, v in larger_set.items()}
-        for k, v in smaller_set.items():
-            new_set[k] -= v
-        return new_set
-
-    def parse_basket_dicts(self):
-        self.basket_dicts = {}
-        for k in self.price_table.keys():
-            self.basket_dicts[k] = {name: count for name, count in k}
-
-    def parse_item_names(self):
-        self.item_names = set()
-        for combination in self.price_table.keys():
-            for name, _ in combination:
-                self.item_names.add(name)
-
     def parse_SKUs(self, skus: str) -> Dict[str, int]:
-        counts = {name: 0 for name in self.item_names}
+        counts = {name: 0 for name in self.prices.keys()}
         for c in skus:
             if c not in counts:
                 raise ValueError("SKUs should only contain letters that we stock.")
             counts[c] += 1
         return counts
+
 
 
