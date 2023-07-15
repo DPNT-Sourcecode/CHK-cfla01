@@ -131,11 +131,15 @@ def chk_r5_info():
         (("R", 3), ("Q", 1)): 150,
         (("Q", 3),): 80,
         (("R", 1),): 50,
+        (("U", 1),): 40,
+        (("U", 4),): 120,
+        (("V", 1),): 50,
+        (("V", 3),): 130,
+        (("V", 2),): 90,
         (("W", 1),): 20,
+
         (("S", 1),): 30,
         (("T", 1),): 20,
-        (("U", 1),): 40,
-        (("V", 1),): 50,
         (("X", 1),): 90,
         (("Y", 1),): 10,
         (("Z", 1),): 50,
@@ -146,12 +150,12 @@ def chk_r5_info():
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus):
-    chk_r4 = Checkout(chk_r4_info())
+    chk_r5 = Checkout(chk_r5_info())
     try:
-        counts = chk_r4.parse_SKUs(skus)
+        counts = chk_r5.parse_SKUs(skus)
     except ValueError:
         return -1
-    return chk_r4.get_best_price_all(counts)
+    return chk_r5.get_best_price_all(counts)
 
 
 def checkout_r4(skus):
@@ -260,6 +264,7 @@ class Checkout:
                 raise ValueError("SKUs should only contain letters that we stock.")
             counts[c] += 1
         return counts
+
 
 
 
