@@ -10,37 +10,46 @@ def chk_r1_info():
         1: 30,
         2: 45,
     }
-    price_A1 = {"multi": 3, "price": 130}
-    price_A2 = {"multi": 1, "price": 50}
-    price_B1 = {"multi": 2, "price": 45}
-    price_B2 = {"multi": 1, "price": 30}
-    price_C1 = {"multi": 1, "price": 20}
-    price_D1 = {"multi": 1, "price": 15}
+    prices_C = {
+        1: 20,
+    }
+    prices_D = {
+        1: 15,
+    }
     info = {
-        "A": [price_A1, price_A2],
-        "B": [price_B1, price_B2],
-        "C": [price_C1],
-        "D": [price_D1],
+        "A": prices_A,
+        "B": prices_B,
+        "C": prices_C,
+        "D": prices_D,
     }
     return info
 
 
 def chk_r2_info():
-    price_A1 = {"multi": 5, "price": 200}
-    price_A2 = {"multi": 3, "price": 130}
-    price_A3 = {"multi": 1, "price": 50}
-    price_B1 = {"multi": 2, "price": 45}
-    price_B2 = {"multi": 1, "price": 30}
-    price_C1 = {"multi": 1, "price": 20}
-    price_D1 = {"multi": 1, "price": 15}
-    price_E1 = {"multi": 2, "price": 40}
-    price_E2 = {"multi": 1, "price": 40}
+    prices_A = {
+        1: 50,
+        3: 130,
+        5: 200,
+    }
+    prices_B = {
+        1: 30,
+        2: 45,
+    }
+    prices_C = {
+        1: 20,
+    }
+    prices_D = {
+        1: 15,
+    }
+    prices_E = {
+        1: 40,
+        2: 40,
+    }
     info = {
-        "A": [price_A1, price_A2],
-        "B": [price_B1, price_B2],
-        "C": [price_C1],
-        "D": [price_D1],
-        "E": [price_E1, price_E2],
+        "A": prices_A,
+        "B": prices_B,
+        "C": prices_C,
+        "D": prices_D,
     }
     return info
 
@@ -77,6 +86,7 @@ class Checkout:
             item_name: str,
             count: int
             ):
+        if count in self.price_table
         running_total = 0
         all_prices = item_info["offer"] + [{"multi": 1, "price": item_info["price"]}]
         for offer in all_prices:
