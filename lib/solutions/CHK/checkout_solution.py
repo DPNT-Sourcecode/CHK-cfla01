@@ -80,22 +80,25 @@ class Checkout:
             price_table: Dict[str, Dict]
             ):
         self.price_table = price_table
+        self.best_price_cache = {}
 
     def get_best_price(
             self,
             item_name: str,
             count: int
             ):
-        if count == 0:
-            return 0
+        if item_name not in self.best_price_cache:
+            self.best_price_cache[item_name] = {0: 0}
+        if count in self.best_price_cache[item_name]:
+            return self.best_price_cache[item_name][count]
         running_prices = []
         for multiple in self.price_table[item_name].keys():
             if count >= multiple:
                 remaining = self.get_best_price(item_name, count - multiple)
                 current = self.price_table[item_name][multiple]
                 running_prices.append(remaining + current)
+        self.best_price_cache[item_name][count] = min(running_prices)
         return min(running_prices)
-
 
     def get_best_price_all(
             self,
