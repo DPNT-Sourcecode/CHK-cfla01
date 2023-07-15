@@ -24,6 +24,9 @@ def checkout(skus):
     return 0
 
 
+def parse_SKUs()
+
+
 class Checkout:
     def __init__(
             self,
@@ -65,5 +68,6 @@ class Checkout:
             for name, count in counts.items()
         ]
         return sum(best_prices)
+
 
 

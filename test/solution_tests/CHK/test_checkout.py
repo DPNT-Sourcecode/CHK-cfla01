@@ -28,6 +28,9 @@ class TestCheckout():
     def test_checkout(self):
         assert checkout_solution.checkout("") == 0
 
+    def test_parse_SKUs(self, chk_r1):
+        assert chk_r1.parse_SKUs("A") = {"A": }
+
     def test_get_best_price_all(self, chk_r1):
         counts = {
             "A": 4,
@@ -49,3 +52,4 @@ class TestCheckout():
         assert chk_r1.get_best_price("A", 2) == 100
         assert chk_r1.get_best_price("A", 3) == 130
         assert chk_r1.get_best_price("A", 4) == 180
+
