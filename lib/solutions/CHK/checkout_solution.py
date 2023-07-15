@@ -99,10 +99,62 @@ def chk_r4_info():
     return info
 
 
+def chk_r5_info():
+    info = {
+        (("A", 1),): 50,
+        (("A", 5),): 200,
+        (("A", 3),): 130,
+        (("B", 1),): 30,
+        (("E", 2), ("B", 1)): 80,
+        (("B", 2),): 45,
+        (("C", 1),): 20,
+        (("D", 1),): 15,
+        (("E", 1),): 40,
+        (("F", 1),): 10,
+        (("F", 3),): 20,
+        (("G", 1),): 20,
+        (("H", 1),): 10,
+        (("H", 10),): 80,
+        (("H", 5),): 45,
+        (("I", 1),): 35,
+        (("J", 1),): 60,
+        (("K", 1),): 70,
+        (("K", 2),): 120,
+        (("L", 1),): 90,
+        (("M", 1),): 15,
+        (("N", 3), ("M", 1)): 120,
+        (("N", 1),): 40,
+        (("O", 1),): 10,
+        (("P", 1),): 50,
+        (("P", 5),): 200,
+        (("Q", 1),): 30,
+        (("R", 3), ("Q", 1)): 150,
+        (("Q", 3),): 80,
+        (("R", 1),): 50,
+        (("W", 1),): 20,
+        (("S", 1),): 30,
+        (("T", 1),): 20,
+        (("U", 1),): 40,
+        (("V", 1),): 50,
+        (("X", 1),): 90,
+        (("Y", 1),): 10,
+        (("Z", 1),): 50,
+    }
+    return info
+
+
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus):
-    print(skus)
+    chk_r4 = Checkout(chk_r4_info())
+    try:
+        counts = chk_r4.parse_SKUs(skus)
+    except ValueError:
+        return -1
+    return chk_r4.get_best_price_all(counts)
+
+
+def checkout_r4(skus):
     chk_r4 = Checkout(chk_r4_info())
     try:
         counts = chk_r4.parse_SKUs(skus)
@@ -208,6 +260,7 @@ class Checkout:
                 raise ValueError("SKUs should only contain letters that we stock.")
             counts[c] += 1
         return counts
+
 
 
 
