@@ -23,4 +23,3 @@ def get_best_price(item_info):
     if not item_info["offer"]:
         return item_info["price"] * item_info["count"]
     
-
