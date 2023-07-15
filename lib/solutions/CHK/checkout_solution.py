@@ -74,16 +74,18 @@ class Checkout:
 
     def validate_offers(self):
         # Make sure that all offers are arranged in
-        # decreasing value (i.e. best offer first)
-        offer_lists = [
-            info["offer"]
-            for info in self.price_table.values()
-            ]
-        for offer_list in offer_list:
-            value = float('Inf')
+        # decreasing item result price (i.e. best offer first)
+        offer_lists = {
+            item: info["offer"]
+            for item, info in self.price_table.items()
+        }
+        for item, offer_list in offer_lists:
+            last_price = self.price_table
             for offer in offer_list:
                 offer_value = offer["price"] / offer["multi"]
-                if value < offer
+                if value < offer:
+                    raise ValueError()
+                value = offer_value
 
 
     def get_best_price(
@@ -124,6 +126,7 @@ class Checkout:
                 raise ValueError("SKUs should only contain letters that we stock.")
             counts[c] += 1
         return counts
+
 
 
 
