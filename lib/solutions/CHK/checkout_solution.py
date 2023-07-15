@@ -28,9 +28,35 @@ def chk_r2_info():
     return info
 
 
+def chk_r3_info():
+    info = {
+        (("A", 1),): 50,
+        (("A", 3),): 130,
+        (("A", 5),): 200,
+        (("B", 1),): 30,
+        (("B", 2),): 45,
+        (("C", 1),): 20,
+        (("D", 1),): 15,
+        (("E", 1),): 40,
+        (("E", 2), ("B", 1)): 80,
+        (("F", 1),): 10,
+        (("F", 3),): 20,
+    }
+    return info
+
+
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus):
+    chk_r3 = Checkout(chk_r3_info())
+    try:
+        counts = chk_r3.parse_SKUs(skus)
+    except ValueError:
+        return -1
+    return chk_r3.get_best_price_all(counts)
+
+
+def checkout_r2(skus):
     chk_r2 = Checkout(chk_r2_info())
     try:
         counts = chk_r2.parse_SKUs(skus)
