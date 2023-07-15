@@ -6,10 +6,8 @@ from typing import Dict, Tuple
 def checkout(skus):
     offer_A = {"multi": 3, "price": 130}
     info_A = {"price": 50, "offer": offer_A}
-
     offer_B = {"multi": 2, "price": 45}
     info_B = {"price": 30, "offer": offer_B}
-
     info_C = {"count": 5, "price": 20, "offer": {}}
     info_D = {"price": 15, "offer": {}}
 
@@ -21,7 +19,11 @@ def checkout(skus):
     }
 
     chk_r1 = Checkout(info)
-    return 0
+    try:
+        counts = chk_r1.parse_SKUs(skus)
+    except ValueError:
+        return -1
+    return chk_r1.get_best_price_all(counts)
 
 
 class Checkout:
@@ -72,7 +74,10 @@ class Checkout:
         # a ValueError
         counts = {name: 0 for name in self.price_table.keys()}
         for c in skus:
-            if c 
+            if c not in counts:
+                raise ValueError("SKUs should only contain letters that we stock.")
+            counts[c] += 1
+        return counts
 
 
 
