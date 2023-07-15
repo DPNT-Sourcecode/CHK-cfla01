@@ -191,13 +191,14 @@ def checkout_r1(skus):
 class Checkout:
     def __init__(
             self,
-            price_table: Dict[Tuple, int]
+            price_table: Dict[Tuple, int],
             special_prices_enable=False
             ):
         self.price_table = price_table
         self.parse_item_names_and_offers()
         self.parse_basket_dicts()
         self.best_price_cache = {'{}': 0}
+        self.special_prices_enable = special_prices_enable
         if special_prices_enable:
             self.special_prices = {
                 "X": 17,
@@ -211,6 +212,13 @@ class Checkout:
             self,
             counts: Dict[str, int]
             ) -> int:
+            
+        if self.special_prices_enable:
+            self.special_counts = {}
+            for k in self.special_prices.keys():
+                special_counts[k] = counts[k]
+                counts[k] = 0
+
         # Optimise by pre-counting and subtracting offers afterwards
         price = sum([counts[k] * self.basic_prices[k] for k in counts.keys()])
         for offer_key, offer_price in self.offer_prices.items():
@@ -250,7 +258,7 @@ class Checkout:
         self.offer_prices = {}
         for combination, price in self.price_table.items():
             # Sort into offers and basic prices
-            # (I probably should have kept the original input structure
+            # I probably should have kept the original input structure
             if len(combination) == 1 and combination[0][1] == 1:
                 self.basic_prices[combination[0][0]] = price
             else:
