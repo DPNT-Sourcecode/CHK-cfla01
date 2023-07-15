@@ -150,36 +150,34 @@ class Checkout:
             ):
         self.prices = prices
         self.offers = offers
-        self.parse_item_names()
-        self.parse_basket_dicts()
+        self.parse_offer_dicts()
 
     def get_best_price_all(
             self,
             counts: Dict[str, int]
             ) -> int:
+        initial_best_price = [
+            counts[k] * self.prices[k]
+            for k in self.counts.keys()
+        ]
 
-        if str(counts) in self.best_price_cache:
-            return self.best_price_cache[str(counts)]
-
-        if max(counts.values()) == 0:
-            self.best_price_cache = {str(counts): 0}
-            return self.best_price_cache[str(counts)]
-
-        running_prices = []
-        for basket_key, basket_price in self.price_table.items():
-            basket = self.basket_dicts[basket_key]
-            if self.is_subset(basket, counts):
-                remainder = self.subtract(basket, counts)
-                remainder_price = self.get_best_price_all(remainder)
-                running_prices.append(basket_price + remainder_price)
-        self.best_price_cache[str(counts)] = min(running_prices)
-        return self.best_price_cache[str(counts)]
 
     def is_subset(self, smaller_set, larger_set):
         for k, v in smaller_set.items():
             if v > larger_set[k]:
                 return False
         return True
+
+    def subtract(self, smaller_set, larger_set):
+        new_set = {k: v for k, v in larger_set.items()}
+        for k, v in smaller_set.items():
+            new_set[k] -= v
+        return new_set
+
+    def parse_offer_dicts(self):
+        self.offer_dicts = {}
+        for k in self.offers.keys():
+            self.offer_dicts[k] = {name: count for name, count in k}
 
     def parse_SKUs(self, skus: str) -> Dict[str, int]:
         counts = {name: 0 for name in self.prices.keys()}
@@ -188,6 +186,7 @@ class Checkout:
                 raise ValueError("SKUs should only contain letters that we stock.")
             counts[c] += 1
         return counts
+
 
 
 
