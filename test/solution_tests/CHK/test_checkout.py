@@ -23,6 +23,9 @@ class TestCheckout():
         assert checkout_solution.checkout("AAAAA") == 200
         assert checkout_solution.checkout("AAAAAA") == 250
         assert checkout_solution.checkout("AAAAAAA") == 300
+        assert checkout_solution.checkout("EE") == 80
+        assert checkout_solution.checkout("EEB") == 80
+        assert checkout_solution.checkout("EEEB") == 120
 
     def test_checkout_r1(self):
         assert checkout_solution.checkout_r1("ABxD") == -1
