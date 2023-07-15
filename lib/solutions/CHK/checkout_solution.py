@@ -7,6 +7,19 @@ def checkout(skus):
     raise NotImplementedError()
 
 
+def get_best_price(item_count, item_info):
+    if not item_info["offer"]:
+        return item_info["price"] * item_count
+
+    how_many_offers = item_count // item_info["offer"]["multi"]
+    offer_cost = how_many_offers * item_info["offer"]["price"]
+
+    remaining_items = item_count % item_info["offer"]["multi"]
+    remaining_cost = remaining_items * item_info["price"]
+
+    return offer_cost + remaining_cost
+
+
 def get_best_price_all(
         checkout_counts: Dict[str, int],
         checkout_info: Dict[str, Dict],
@@ -19,18 +32,9 @@ def get_best_price_all(
     # 3A for 130 => {"multi": 3, "price": 130}
     #
     # checkout_counts is a Dict of "item": item_counts
+    best_prices = [
+        get_best_price 
+        for item_name in checkout_counts.keys()
+    ]
     raise NotImplementedError()
-    
-
-def get_best_price(item_count, item_info):
-    if not item_info["offer"]:
-        return item_info["price"] * item_count
-
-    how_many_offers = item_count // item_info["offer"]["multi"]
-    offer_cost = how_many_offers * item_info["offer"]["price"]
-
-    remaining_items = item_count % item_info["offer"]["multi"]
-    remaining_cost = remaining_items * item_info["price"]
-
-    return offer_cost + remaining_cost
 
