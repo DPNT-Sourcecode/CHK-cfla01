@@ -97,15 +97,10 @@ class Checkout:
             return item_info["price"] * count
 
         running_total = 0
-        for offer in offers:
-            o
-
-
-        how_many_offers = count // item_info["offer"]["multi"]
-        offer_cost = how_many_offers * item_info["offer"]["price"]
-
-        remaining_items = count % item_info["offer"]["multi"]
-        remaining_cost = remaining_items * item_info["price"]
+        for offer in offers + [{"multi": 1, "price": item_info["price"]}]:
+            how_many_offers = count // offer["multi"]
+            offer_cost = how_many_offers * offer["price"]
+            count = count % item_info["offer"]["multi"]
 
         return offer_cost + remaining_cost
 
@@ -130,3 +125,4 @@ class Checkout:
                 raise ValueError("SKUs should only contain letters that we stock.")
             counts[c] += 1
         return counts
+
