@@ -18,14 +18,27 @@ def chk_r2():
     return chk_r2
 
 
+@pytest.fixture
+def chk_r3():
+    chk_r3 = checkout_solution.Checkout(
+        checkout_solution.chk_r3_info()
+        )
+    return chk_r3
+
+
 class TestCheckout():
+    def test_checkout_r3(self):
+        assert checkout_solution.checkout("AF") == 50 + 10
+        assert checkout_solution.checkout("AFF") == 50 + 20
+        assert checkout_solution.checkout("AFFF") == 50 + 20
+
     def test_checkout_r2(self):
-        assert checkout_solution.checkout("AAAAA") == 200
-        assert checkout_solution.checkout("AAAAAA") == 250
-        assert checkout_solution.checkout("AAAAAAA") == 300
-        assert checkout_solution.checkout("EE") == 80
-        assert checkout_solution.checkout("EEB") == 80
-        assert checkout_solution.checkout("EEEB") == 120
+        assert checkout_solution.checkout_r2("AAAAA") == 200
+        assert checkout_solution.checkout_r2("AAAAAA") == 250
+        assert checkout_solution.checkout_r2("AAAAAAA") == 300
+        assert checkout_solution.checkout_r2("EE") == 80
+        assert checkout_solution.checkout_r2("EEB") == 80
+        assert checkout_solution.checkout_r2("EEEB") == 120
 
     def test_checkout_r1(self):
         assert checkout_solution.checkout_r1("ABxD") == -1
