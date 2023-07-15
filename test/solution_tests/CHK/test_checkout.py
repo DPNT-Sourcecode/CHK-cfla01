@@ -19,6 +19,11 @@ def chk_r2():
 
 
 class TestCheckout():
+    def test_checkout_r2(self):
+        assert checkout_solution.checkout("AAAAA") == 200
+        assert checkout_solution.checkout("AAAAAA") == 260
+        assert checkout_solution.checkout("AAAAAAA") == 300
+
     def test_checkout_r1(self):
         assert checkout_solution.checkout_r1("ABxD") == -1
         assert checkout_solution.checkout_r1("AAAABBBBBCCCCCDDDDD") == 475
