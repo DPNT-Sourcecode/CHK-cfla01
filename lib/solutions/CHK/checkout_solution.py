@@ -3,27 +3,27 @@ from typing import Dict, Tuple
 
 def chk_r1_info():
     info = {
-        (("A", 1)): 50,
-        (("A", 3)): 130,
-        (("B", 1)): 30,
-        (("B", 2)): 45,
-        (("C", 1)): 20,
-        (("D", 1)): 15,
+        (("A", 1),): 50,
+        (("A", 3),): 130,
+        (("B", 1),): 30,
+        (("B", 2),): 45,
+        (("C", 1),): 20,
+        (("D", 1),): 15,
     }
     return info
 
 
 def chk_r2_info():
     info = {
-        (("A", 1)): 50,
-        (("A", 3)): 130,
-        (("A", 5)): 200,
-        (("B", 1)): 30,
-        (("B", 2)): 45,
-        (("C", 1)): 20,
-        (("D", 1)): 15,
-        (("E", 1)): 40,
-        (("E", 2), ("B", 1)): 40,
+        (("A", 1),): 50,
+        (("A", 3),): 130,
+        (("A", 5),): 200,
+        (("B", 1),): 30,
+        (("B", 2),): 45,
+        (("C", 1),): 20,
+        (("D", 1),): 15,
+        (("E", 1),): 40,
+        (("E", 2), ("B", 1)): 80,
     }
     return info
 
@@ -94,13 +94,12 @@ class Checkout:
 
     def parse_basket_dicts(self):
         self.basket_dicts = {}
-        for k, _ in self.price_table.keys():
+        for k in self.price_table.keys():
             self.basket_dicts[k] = {name: count for name, count in k}
 
     def parse_item_names(self):
         self.item_names = set()
         for combination in self.price_table.keys():
-            print(combination)
             for name, _ in combination:
                 self.item_names.add(name)
 
@@ -111,6 +110,7 @@ class Checkout:
                 raise ValueError("SKUs should only contain letters that we stock.")
             counts[c] += 1
         return counts
+
 
 
 
