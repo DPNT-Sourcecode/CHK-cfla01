@@ -86,14 +86,11 @@ class Checkout:
             item_name: str,
             count: int
             ):
-        if count in self.price_table
-        running_total = 0
-        all_prices = item_info["offer"] + [{"multi": 1, "price": item_info["price"]}]
-        for offer in all_prices:
-            how_many_offers = count // offer["multi"]
-            running_total += how_many_offers * offer["price"]
-            count %= offer["multi"]
-        return running_total
+        running_prices = []
+        for multiple in price_table.keys():
+            if count >= multiple:
+        return min(running_prices)
+
 
     def get_best_price_all(
             self,
@@ -116,3 +113,4 @@ class Checkout:
                 raise ValueError("SKUs should only contain letters that we stock.")
             counts[c] += 1
         return counts
+
