@@ -11,13 +11,14 @@ class Checkout:
         self.price_table = price_table
 
     def get_best_price(self, item_name, count):
+        item_info = self.price_table[item_name]
         if not item_info["offer"]:
-            return item_info["price"] * item_count
+            return item_info["price"] * count
 
-        how_many_offers = item_count // item_info["offer"]["multi"]
+        how_many_offers = count // item_info["offer"]["multi"]
         offer_cost = how_many_offers * item_info["offer"]["price"]
 
-        remaining_items = item_count % item_info["offer"]["multi"]
+        remaining_items = count % item_info["offer"]["multi"]
         remaining_cost = remaining_items * item_info["price"]
 
         return offer_cost + remaining_cost
@@ -39,5 +40,6 @@ class Checkout:
             for name, count in counts.items()
         ]
         return sum(best_prices)
+
 
 

@@ -2,6 +2,9 @@ import pytest
 from solutions.CHK import checkout_solution
 
 
+@pytest.fixture
+
+
 class TestCheckout():
     def test_checkout(self):
         with pytest.raises(Exception):
@@ -53,4 +56,5 @@ class TestCheckout():
         info_4 = {"price": 10,
                   "offer": {"multi": 2, "price": 10}}
         assert checkout_solution.get_best_price(11, info_4) == 60
+
 
