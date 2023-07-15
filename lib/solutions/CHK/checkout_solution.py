@@ -79,8 +79,8 @@ class Checkout:
             item: info["offer"]
             for item, info in self.price_table.items()
         }
-        for item, offer_list in offer_lists:
-            last_price = self.price_table["item"]["price"]
+        for item, offer_list in offer_lists.items():
+            last_price = self.price_table[item]["price"]
             for offer in offer_list:
                 offer_price = offer["price"] / offer["multi"]
                 if offer_price > last_price:
@@ -97,12 +97,12 @@ class Checkout:
             return item_info["price"] * count
 
         running_total = 0
-        for offer in offers + [{"multi": 1, "price": item_info["price"]}]:
+        all_prices = item_info["offer"] + [{"multi": 1, "price": item_info["price"]}]
+        for offer in all_prices:
             how_many_offers = count // offer["multi"]
-            offer_cost = how_many_offers * offer["price"]
-            count = count % item_info["offer"]["multi"]
-
-        return offer_cost + remaining_cost
+            running_total += how_many_offers * offer["price"]
+            count %= offer["multi"]
+        return running_total
 
     def get_best_price_all(
             self,
@@ -125,4 +125,5 @@ class Checkout:
                 raise ValueError("SKUs should only contain letters that we stock.")
             counts[c] += 1
         return counts
+
 
