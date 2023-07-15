@@ -63,7 +63,3 @@ class TestCheckout():
         assert chk_r1.get_best_price("A", 2) == 100
         assert chk_r1.get_best_price("A", 3) == 130
         assert chk_r1.get_best_price("A", 4) == 180
-
-
-
-
