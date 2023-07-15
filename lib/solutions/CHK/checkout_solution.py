@@ -9,8 +9,9 @@ def chk_r1_info():
         "D": 15,
     }
     offers = {
-        (("A", 3),): 130,
-        (("B", 2),): 45,
+        # offer: saving
+        (("A", 3),): 20,
+        (("B", 2),): 15,
     }
     return prices, offers
 
@@ -156,10 +157,13 @@ class Checkout:
             self,
             counts: Dict[str, int]
             ) -> int:
-        initial_best_price = [
+        best_price = sum([
             counts[k] * self.prices[k]
-            for k in self.counts.keys()
-        ]
+            for k in counts.keys()
+        ])
+        for offer in self.offers:
+            if offer_applies(counts, offer):
+                self.subtract(counts, )
 
 
     def is_subset(self, smaller_set, larger_set):
@@ -186,6 +190,7 @@ class Checkout:
                 raise ValueError("SKUs should only contain letters that we stock.")
             counts[c] += 1
         return counts
+
 
 
 
