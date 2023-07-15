@@ -54,6 +54,7 @@ class Checkout:
             price_table: Dict[str, Dict]
             ):
         self.price_table = price_table
+        self.parse_keys()
         self.best_price_cache = {}
 
     def get_best_price(
@@ -85,11 +86,16 @@ class Checkout:
         ]
         return sum(best_prices)
 
+    def parse_item_names(self):
+        self.item_names = set()
+        for combination in self.price_table.keys():
+            for name, _ in combination:
+                self.item_names.add(name)
+
     def parse_SKUs(self, skus: str) -> Dict[str, int]:
-        counts = {name: 0 for name in self.price_table.keys()}
+        counts = {name: 0 for name in self.item_names}
         for c in skus:
             if c not in counts:
                 raise ValueError("SKUs should only contain letters that we stock.")
             counts[c] += 1
         return counts
-
