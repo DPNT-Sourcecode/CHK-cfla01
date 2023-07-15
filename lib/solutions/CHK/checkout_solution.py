@@ -149,12 +149,8 @@ class Checkout:
         if str(counts) in self.best_price_cache:
             return self.best_price_cache[str(counts)]
 
-        # Optimise by removing items with no offers
-        pre_count = 0
-        for k, v in counts.items():
-            if k not in self.has_offers:
-                pre_count += counts[k] * self.basic_prices[k]
-                counts[k] = 0
+        # Optimise by 
+        pre_count = sum([counts[k] * self.basic_prices[k] for k in counts.keys()])
 
         if max(counts.values()) == 0:
             self.best_price_cache = {str(counts): 0}
@@ -193,6 +189,8 @@ class Checkout:
         self.basic_prices = {}
         self.offer_prices = {}
         for combination, price in self.price_table.items():
+            # Sort into offers and basic prices
+            # (I probably should have kept the original input structure
             if len(combination) == 1 and combination[0][1] == 1:
                 self.basic_prices[combination[0][0]] = price
             else:
@@ -209,6 +207,7 @@ class Checkout:
                 raise ValueError("SKUs should only contain letters that we stock.")
             counts[c] += 1
         return counts
+
 
 
 
