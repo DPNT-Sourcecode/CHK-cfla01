@@ -96,6 +96,11 @@ class Checkout:
         if not item_info["offer"]:
             return item_info["price"] * count
 
+        running_total = 0
+        for offer in offers:
+            o
+
+
         how_many_offers = count // item_info["offer"]["multi"]
         offer_cost = how_many_offers * item_info["offer"]["price"]
 
