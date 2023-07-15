@@ -25,8 +25,12 @@ def get_best_price_all(
 def get_best_price(item_count, item_info):
     if not item_info["offer"]:
         return item_info["price"] * item_count
+
     how_many_offers = item_count // item_info["offer"]["multi"]
     offer_cost = how_many_offers * item_info["offer"]["price"]
-    remaining_items = item_count - (item_count % item_info["offer"]["multi"])
+
+    remaining_items = item_count % item_info["offer"]["multi"]
     remaining_cost = remaining_items * item_info["price"]
+
     return offer_cost + remaining_cost
+
