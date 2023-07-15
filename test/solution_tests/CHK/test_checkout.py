@@ -59,9 +59,3 @@ class TestCheckout():
             + (5 * 15)
         )
         assert chk_r1.get_best_price_all(counts) == correct_answer
-
-    def test_get_best_price(self, chk_r1):
-        assert chk_r1.get_best_price("A", 0) == 0
-        assert chk_r1.get_best_price("A", 2) == 100
-        assert chk_r1.get_best_price("A", 3) == 130
-        assert chk_r1.get_best_price("A", 4) == 180

@@ -57,14 +57,12 @@ class Checkout:
         self.parse_keys()
         self.best_price_cache = {}
 
-    def get_best_price(
+    def get_best_price_all(
             self,
             item_name: str,
-            count: int
+            counts: int
             ):
-        if item_name not in self.best_price_cache:
-            self.best_price_cache[item_name] = {0: 0}
-        if count in self.best_price_cache[item_name]:
+        if counts in self.best_price_cache:
             return self.best_price_cache[item_name][count]
         running_prices = []
         for multiple in self.price_table[item_name].keys():
@@ -74,17 +72,6 @@ class Checkout:
                 running_prices.append(remaining + current)
         self.best_price_cache[item_name][count] = min(running_prices)
         return self.best_price_cache[item_name][count]
-
-    def get_best_price_all(
-            self,
-            counts: Dict[str, int],
-            ) -> int:
-        # counts is a Dict of "item_name": item_counts
-        best_prices = [
-            self.get_best_price(name, count)
-            for name, count in counts.items()
-        ]
-        return sum(best_prices)
 
     def parse_item_names(self):
         self.item_names = set()
