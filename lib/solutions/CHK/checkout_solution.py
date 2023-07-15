@@ -95,6 +95,7 @@ def chk_r4_info():
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus):
+    print(skus)
     chk_r4 = Checkout(chk_r4_info())
     try:
         counts = chk_r4.parse_SKUs(skus)
@@ -206,5 +207,6 @@ class Checkout:
                 raise ValueError("SKUs should only contain letters that we stock.")
             counts[c] += 1
         return counts
+
 
 
