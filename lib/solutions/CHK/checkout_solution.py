@@ -191,9 +191,12 @@ class Checkout:
         self.item_names = set()
         self.has_offers = set()
         self.basic_prices = {}
+        self.offer_prices = {}
         for combination, price in self.price_table.items():
             if len(combination) == 1 and combination[0][1] == 1:
                 self.basic_prices[combination[0][0]] = price
+            else:
+                self.offer_prices[combination] = price
             for name, _ in combination:
                 if name in self.item_names:
                     self.has_offers.add(name)
@@ -206,6 +209,7 @@ class Checkout:
                 raise ValueError("SKUs should only contain letters that we stock.")
             counts[c] += 1
         return counts
+
 
 
 
