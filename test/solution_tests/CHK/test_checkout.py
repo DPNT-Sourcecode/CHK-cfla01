@@ -24,6 +24,14 @@ class TestCheckout():
             "D": info_D,
         }
 
+        correct_answer = (
+            (130 + 50)
+            + (45*2 + 30)
+            + (5 * 20)
+            + (5 * 15)
+        )
+        assert checkout_solution.get_best_price_all(checkout_info) == correct_answer
+
     def test_get_best_price(self):
         info_1 = {"count": 0, "price": 10, "offer": {}}
         assert checkout_solution.get_best_price(info_1) == 0

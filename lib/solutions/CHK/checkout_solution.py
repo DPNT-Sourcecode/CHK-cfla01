@@ -24,5 +24,3 @@ def get_best_price(item_info):
         return item_info["price"] * item_info["count"]
     
 
-
-
