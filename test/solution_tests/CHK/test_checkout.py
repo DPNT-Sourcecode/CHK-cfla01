@@ -29,7 +29,17 @@ class TestCheckout():
         assert checkout_solution.checkout("") == 0
 
     def test_parse_SKUs(self, chk_r1):
-        assert chk_r1.parse_SKUs("A") = {"A": }
+        assert chk_r1.parse_SKUs("") == {
+            "A": 0, "B": 0, "C": 0, "D": 0
+            }
+        assert chk_r1.parse_SKUs("A") == {
+            "A": 1, "B": 0, "C": 0, "D": 0
+            }
+        assert chk_r1.parse_SKUs("ABCD") == {
+            "A": 1, "B": 1, "C": 1, "D": 1
+            }
+        with pytest.raises(ValueError):
+            chk_r1.parse_SKUs("ABxD")
 
     def test_get_best_price_all(self, chk_r1):
         counts = {
@@ -52,4 +62,5 @@ class TestCheckout():
         assert chk_r1.get_best_price("A", 2) == 100
         assert chk_r1.get_best_price("A", 3) == 130
         assert chk_r1.get_best_price("A", 4) == 180
+
 
