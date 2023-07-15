@@ -136,7 +136,7 @@ class Checkout:
             price_table: Dict[Tuple, int]
             ):
         self.price_table = price_table
-        self.parse_item_names()
+        self.parse_item_names_and_offers()
         self.parse_basket_dicts()
         self.best_price_cache = {'{}': 0}
 
@@ -144,6 +144,10 @@ class Checkout:
             self,
             counts: Dict[str, int]
             ) -> int:
+
+        for k, v in counts:
+            if k not in self.has_offers:
+                counts:
 
         if str(counts) in self.best_price_cache:
             return self.best_price_cache[str(counts)]
@@ -183,7 +187,11 @@ class Checkout:
         self.item_names = set()
         self.has_offers = set()
         for combination in self.price_table.keys():
+            if len(combination) == 1 and combination[1] == 1:
+                combina
             for name, _ in combination:
+                if name in self.item_names:
+                    self.has_offers.add(name)
                 self.item_names.add(name)
 
     def parse_SKUs(self, skus: str) -> Dict[str, int]:
@@ -193,11 +201,3 @@ class Checkout:
                 raise ValueError("SKUs should only contain letters that we stock.")
             counts[c] += 1
         return counts
-
-
-
-
-
-
-
-
