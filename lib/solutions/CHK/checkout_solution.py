@@ -66,10 +66,17 @@ class Checkout:
         # "item_name": item_info
         # (item_name will be e.g. "A")
         # item_info is a dict of 
-        # {"price": 50, "offer": offer_info}
+        # {"price": 50, "offer": List[offer_info]}
         # where offer_info is parsed to e.g.
         # 3A for 130 => {"multi": 3, "price": 130}
         self.price_table = price_table
+        self.validate_offers()
+
+    def validate_offers(self):
+        # Make sure that all offers are arranged in
+        # increasing value.
+        offer_lists = []
+        for offer_info
 
     def get_best_price(
             self,
@@ -109,5 +116,6 @@ class Checkout:
                 raise ValueError("SKUs should only contain letters that we stock.")
             counts[c] += 1
         return counts
+
 
 
