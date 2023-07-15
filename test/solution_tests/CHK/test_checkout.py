@@ -1,6 +1,5 @@
 import pytest
 from solutions.CHK import checkout_solution
-from solutions.price_tables import chk_r1_info, chk_r2_info
 
 
 @pytest.fixture
@@ -20,9 +19,9 @@ def chk_r2():
 
 
 class TestCheckout():
-    def test_checkout(self):
-        assert checkout_solution.checkout("ABxD") == -1
-        assert checkout_solution.checkout("AAAABBBBBCCCCCDDDDD") == 475
+    def test_checkout_r1(self):
+        assert checkout_solution.checkout_r1("ABxD") == -1
+        assert checkout_solution.checkout_r1("AAAABBBBBCCCCCDDDDD") == 475
 
     def test_parse_SKUs(self, chk_r1):
         assert chk_r1.parse_SKUs("") == {
