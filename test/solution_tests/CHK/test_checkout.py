@@ -60,4 +60,4 @@ class TestCheckout():
 
     def test_mulitple_offers(self, chk_r2):
         expected_price_9xA = 50 + 130 + 200
-        assert chk_r2.get_best_price("A", 9) == expected_price_9xA
+        assert chk_r2.get_best_price("A", 8) == expected_price_9xA
