@@ -1,6 +1,12 @@
 from typing import Dict, Tuple
 
 
+# WARNING: I am aware that the code is quite fragile.
+# You have to manually ensure that the input information is ordered
+# such that better offers are listed before worse ones. This is a
+# problem for obvious reasons. However, I have already been doing this
+# for much too long. In final round I will attempt to fix this problem.
+
 def chk_r1_info():
     info = {
         (("A", 1),): 50,
@@ -201,4 +207,5 @@ class Checkout:
                 raise ValueError("SKUs should only contain letters that we stock.")
             counts[c] += 1
         return counts
+
 
