@@ -2,6 +2,14 @@ from typing import Dict, Tuple
 
 
 def chk_r1_info():
+    prices_A = {
+        1: 50,
+        3: 130,
+    }
+    prices_B = {
+        1: 30,
+        2: 45,
+    }
     price_A1 = {"multi": 3, "price": 130}
     price_A2 = {"multi": 1, "price": 50}
     price_B1 = {"multi": 2, "price": 45}
@@ -69,10 +77,6 @@ class Checkout:
             item_name: str,
             count: int
             ):
-        item_info = self.price_table[item_name]
-        if not item_info["offer"]:
-            return item_info["price"] * count
-
         running_total = 0
         all_prices = item_info["offer"] + [{"multi": 1, "price": item_info["price"]}]
         for offer in all_prices:
@@ -102,7 +106,3 @@ class Checkout:
                 raise ValueError("SKUs should only contain letters that we stock.")
             counts[c] += 1
         return counts
-
-
-
-
