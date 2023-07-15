@@ -80,13 +80,12 @@ class Checkout:
             for item, info in self.price_table.items()
         }
         for item, offer_list in offer_lists:
-            last_price = self.price_table
+            last_price = self.price_table["item"]["price"]
             for offer in offer_list:
-                offer_value = offer["price"] / offer["multi"]
-                if value < offer:
+                offer_price = offer["price"] / offer["multi"]
+                if offer_price > last_price:
                     raise ValueError()
-                value = offer_value
-
+                last_price = offer_price
 
     def get_best_price(
             self,
@@ -126,8 +125,3 @@ class Checkout:
                 raise ValueError("SKUs should only contain letters that we stock.")
             counts[c] += 1
         return counts
-
-
-
-
-
