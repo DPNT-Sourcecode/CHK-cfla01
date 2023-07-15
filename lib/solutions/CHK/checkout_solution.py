@@ -62,16 +62,23 @@ class Checkout:
             item_name: str,
             counts: int
             ):
+
         if counts in self.best_price_cache:
-            return self.best_price_cache[item_name][count]
+            return self.best_price_cache[counts]
+
         running_prices = []
-        for multiple in self.price_table[item_name].keys():
+        for basket_key in self.price_table.keys():
             if count >= multiple:
                 remaining = self.get_best_price(item_name, count - multiple)
                 current = self.price_table[item_name][multiple]
                 running_prices.append(remaining + current)
         self.best_price_cache[item_name][count] = min(running_prices)
         return self.best_price_cache[item_name][count]
+
+    def convert_item_key_to_dict(
+            self,
+            basket_key,
+    ):
 
     def parse_item_names(self):
         self.item_names = set()
