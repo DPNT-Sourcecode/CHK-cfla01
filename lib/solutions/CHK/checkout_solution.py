@@ -17,6 +17,24 @@ def chk_r1_info():
     return info
 
 
+def chk_r2_info():
+    offer_A1 = {"multi": 3, "price": 130}
+    offer_A2 = {"multi": 5, "price": 200}
+    info_A = {"price": 50, "offer": [offer_A1, offer_A2]}
+    offer_B = {"multi": 2, "price": 45}
+    info_B = {"price": 30, "offer": [offer_B]}
+    info_C = {"count": 5, "price": 20, "offer": {}}
+    info_D = {"price": 15, "offer": {}}
+    offer_E = {"multi": 2, "price": 40}
+    info_E = {"price": 40, "offer": {}}
+    info = {
+        "A": info_A,
+        "B": info_B,
+        "C": info_C,
+        "D": info_D,
+        "E": info_E,
+    }
+    return info
 
 
 # noinspection PyUnusedLocal
@@ -82,3 +100,4 @@ class Checkout:
                 raise ValueError("SKUs should only contain letters that we stock.")
             counts[c] += 1
         return counts
+
