@@ -27,7 +27,7 @@ def chk_r1():
 class TestCheckout():
     def test_checkout(self):
         assert checkout_solution.checkout("ABxD") == -1
-        assert checkout_solution.checkout("AAAABBBBBCCCCCDDDDD") == -1
+        assert checkout_solution.checkout("AAAABBBBBCCCCCDDDDD") == 475
 
     def test_parse_SKUs(self, chk_r1):
         assert chk_r1.parse_SKUs("") == {
@@ -63,6 +63,7 @@ class TestCheckout():
         assert chk_r1.get_best_price("A", 2) == 100
         assert chk_r1.get_best_price("A", 3) == 130
         assert chk_r1.get_best_price("A", 4) == 180
+
 
 
 
