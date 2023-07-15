@@ -92,8 +92,8 @@ class Checkout:
         for multiple in self.price_table[item_name].keys():
             if count >= multiple:
                 remaining = self.get_best_price(item_name, count - multiple)
-                running_prices.append(self.price)
-                
+                current = self.price_table[item_name][multiple]
+                running_prices.append(remaining + current)
         return min(running_prices)
 
 
@@ -118,5 +118,6 @@ class Checkout:
                 raise ValueError("SKUs should only contain letters that we stock.")
             counts[c] += 1
         return counts
+
 
 
