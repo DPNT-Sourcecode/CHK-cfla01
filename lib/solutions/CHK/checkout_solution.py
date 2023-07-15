@@ -2,54 +2,22 @@ from typing import Dict, Tuple
 
 
 def chk_r1_info():
-    prices_A = {
-        1: 50,
-        3: 130,
-    }
-    prices_B = {
-        1: 30,
-        2: 45,
-    }
-    prices_C = {
-        1: 20,
-    }
-    prices_D = {
-        1: 15,
-    }
     info = {
-        "A": prices_A,
-        "B": prices_B,
-        "C": prices_C,
-        "D": prices_D,
+        "A": {1: 50, 3: 130},
+        "B": {1: 30, 2: 45},
+        "C": {1: 20},
+        "D": {1: 15},
     }
     return info
 
 
 def chk_r2_info():
-    prices_A = {
-        1: 50,
-        3: 130,
-        5: 200,
-    }
-    prices_B = {
-        1: 30,
-        2: 45,
-    }
-    prices_C = {
-        1: 20,
-    }
-    prices_D = {
-        1: 15,
-    }
-    prices_E = {
-        1: 40,
-        2: 40,
-    }
     info = {
-        "A": prices_A,
-        "B": prices_B,
-        "C": prices_C,
-        "D": prices_D,
+        "A": {1: 50, 3: 130, 5: 200},
+        "B": {1: 30, 2: 45},
+        "C": {1: 20},
+        "D": {1: 15},
+        "E": {1: 40, 2: 40},
     }
     return info
 
@@ -121,6 +89,7 @@ class Checkout:
                 raise ValueError("SKUs should only contain letters that we stock.")
             counts[c] += 1
         return counts
+
 
 
 
