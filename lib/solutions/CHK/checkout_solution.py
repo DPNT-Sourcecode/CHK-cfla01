@@ -144,7 +144,7 @@ def chk_r5_info():
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus):
-    chk_r5 = Checkout(chk_r5_info())
+    chk_r5 = Checkout(chk_r5_info(), special_prices_enable=True)
     try:
         counts = chk_r5.parse_SKUs(skus)
     except ValueError:
@@ -216,7 +216,7 @@ class Checkout:
         if self.special_prices_enable:
             self.special_counts = {}
             for k in self.special_prices.keys():
-                special_counts[k] = counts[k]
+                self.special_counts[k] = counts[k]
                 counts[k] = 0
 
         # Optimise by pre-counting and subtracting offers afterwards
@@ -228,7 +228,11 @@ class Checkout:
                 offer_multiplier += 1
                 counts = self.subtract(self.basket_dicts[offer_key], counts)
             price -= offer_multiplier * savings
-        return price
+        return price + self.special_best_price()
+
+    def special_best_price(self):
+        if not self.special_prices_enable:
+            return 0
 
     def offer_basic_price(self, offer_key):
         counts = self.basket_dicts[offer_key]
@@ -275,3 +279,4 @@ class Checkout:
                 raise ValueError("SKUs should only contain letters that we stock.")
             counts[c] += 1
         return counts
+
