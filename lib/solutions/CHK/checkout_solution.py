@@ -2,17 +2,17 @@ from typing import Dict, Tuple
 
 
 def chk_r1_info():
-    offer_A = {"multi": 3, "price": 130}
-    info_A = {"price": 50, "offer": [offer_A]}
-    offer_B = {"multi": 2, "price": 45}
-    info_B = {"price": 30, "offer": [offer_B]}
-    info_C = {"count": 5, "price": 20, "offer": {}}
-    info_D = {"price": 15, "offer": {}}
+    price_A1 = {"multi": 3, "price": 130}
+    price_A2 = {"multi": 1, "price": 50}
+    price_B1 = {"multi": 2, "price": 45}
+    price_B2 = {"multi": 1, "price": 30}
+    price_C1 = {"multi": 1, "price": 20}
+    price_D1 = {"multi": 1, "price": 15}
     info = {
-        "A": info_A,
-        "B": info_B,
-        "C": info_C,
-        "D": info_D,
+        "A": [price_A1, price_A2],
+        "B": [price_B1, price_B2],
+        "C": [price_C1],
+        "D": [price_D1],
     }
     return info
 
@@ -125,5 +125,6 @@ class Checkout:
                 raise ValueError("SKUs should only contain letters that we stock.")
             counts[c] += 1
         return counts
+
 
 
