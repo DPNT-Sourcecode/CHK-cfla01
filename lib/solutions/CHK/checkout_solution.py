@@ -18,21 +18,21 @@ def chk_r1_info():
 
 
 def chk_r2_info():
-    offer_A1 = {"multi": 3, "price": 130}
-    offer_A2 = {"multi": 5, "price": 200}
-    info_A = {"price": 50, "offer": [offer_A1, offer_A2]}
-    offer_B = {"multi": 2, "price": 45}
-    info_B = {"price": 30, "offer": [offer_B]}
-    info_C = {"count": 5, "price": 20, "offer": {}}
-    info_D = {"price": 15, "offer": {}}
-    offer_E = {"multi": 2, "price": 40}
-    info_E = {"price": 40, "offer": [offer_E]}
+    price_A1 = {"multi": 5, "price": 200}
+    price_A2 = {"multi": 3, "price": 130}
+    price_A3 = {"multi": 1, "price": 50}
+    price_B1 = {"multi": 2, "price": 45}
+    price_B2 = {"multi": 1, "price": 30}
+    price_C1 = {"multi": 1, "price": 20}
+    price_D1 = {"multi": 1, "price": 15}
+    price_E1 = {"multi": 2, "price": 40}
+    price_E2 = {"multi": 1, "price": 40}
     info = {
-        "A": info_A,
-        "B": info_B,
-        "C": info_C,
-        "D": info_D,
-        "E": info_E,
+        "A": [price_A1, price_A2],
+        "B": [price_B1, price_B2],
+        "C": [price_C1],
+        "D": [price_D1],
+        "E": [price_E1, price_E2],
     }
     return info
 
@@ -62,30 +62,7 @@ class Checkout:
             self,
             price_table: Dict[str, Dict]
             ):
-        # price_table is a dictionary of
-        # "item_name": item_info
-        # (item_name will be e.g. "A")
-        # item_info is a dict of 
-        # {"price": 50, "offer": List[offer_info]}
-        # where offer_info is parsed to e.g.
-        # 3A for 130 => {"multi": 3, "price": 130}
         self.price_table = price_table
-        self.validate_offers()
-
-    def validate_offers(self):
-        # Make sure that all offers are arranged in
-        # decreasing item result price (i.e. best offer first)
-        offer_lists = {
-            item: info["offer"]
-            for item, info in self.price_table.items()
-        }
-        for item, offer_list in offer_lists.items():
-            last_price = self.price_table[item]["price"]
-            for offer in offer_list:
-                offer_price = offer["price"] / offer["multi"]
-                if offer_price > last_price:
-                    raise ValueError()
-                last_price = offer_price
 
     def get_best_price(
             self,
@@ -125,6 +102,7 @@ class Checkout:
                 raise ValueError("SKUs should only contain letters that we stock.")
             counts[c] += 1
         return counts
+
 
 
 
