@@ -40,6 +40,3 @@ class Checkout:
             for name, count in counts.items()
         ]
         return sum(best_prices)
-
-
-

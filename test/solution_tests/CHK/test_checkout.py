@@ -3,6 +3,25 @@ from solutions.CHK import checkout_solution
 
 
 @pytest.fixture
+def chk_r1():
+    offer_A = {"multi": 3, "price": 130}
+    info_A = {"price": 50, "offer": offer_A}
+
+    offer_B = {"multi": 2, "price": 45}
+    info_B = {"price": 30, "offer": offer_B}
+
+    info_C = {"count": 5, "price": 20, "offer": {}}
+    info_D = {"price": 15, "offer": {}}
+
+    info = {
+        "A": info_A,
+        "B": info_B,
+        "C": info_C,
+        "D": info_D,
+    }
+
+    chk_r1 = checkout_solution.Checkout(info)
+    return chk_r1
 
 
 class TestCheckout():
@@ -10,23 +29,7 @@ class TestCheckout():
         with pytest.raises(Exception):
             checkout_solution.checkout("")
 
-    def test_get_best_price_all(self):
-        offer_A = {"multi": 3, "price": 130}
-        info_A = {"price": 50, "offer": offer_A}
-
-        offer_B = {"multi": 2, "price": 45}
-        info_B = {"price": 30, "offer": offer_B}
-
-        info_C = {"count": 5, "price": 20, "offer": {}}
-        info_D = {"price": 15, "offer": {}}
-
-        info = {
-            "A": info_A,
-            "B": info_B,
-            "C": info_C,
-            "D": info_D,
-        }
-
+    def test_get_best_price_all(self, chk_r1):
         counts = {
             "A": 4,
             "B": 5,
@@ -40,7 +43,7 @@ class TestCheckout():
             + (5 * 20)
             + (5 * 15)
         )
-        assert checkout_solution.get_best_price_all(counts, info) == correct_answer
+        assert chk_r1.get_best_price_all(counts) == correct_answer
 
     def test_get_best_price(self):
         info_1 = {"price": 10, "offer": {}}
@@ -56,5 +59,3 @@ class TestCheckout():
         info_4 = {"price": 10,
                   "offer": {"multi": 2, "price": 10}}
         assert checkout_solution.get_best_price(11, info_4) == 60
-
-
