@@ -67,7 +67,12 @@ class Checkout:
         return sum(best_prices)
 
     def parse_SKUs(self, skus: str) -> Dict[str, int]:
-
+        # if input only contains letters that we stock,
+        # return a dictionary of counts. Else raise
+        # a ValueError
+        counts = {name: 0 for name in self.price_table.keys()}
+        for c in skus:
+            if c 
 
 
 
