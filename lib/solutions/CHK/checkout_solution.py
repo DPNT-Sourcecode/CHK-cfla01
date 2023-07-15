@@ -95,7 +95,6 @@ def chk_r4_info():
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus):
-    print(skus)
     chk_r4 = Checkout(chk_r4_info())
     try:
         counts = chk_r4.parse_SKUs(skus)
@@ -139,14 +138,19 @@ class Checkout:
         self.price_table = price_table
         self.parse_item_names()
         self.parse_basket_dicts()
+        self.best_price_cache = {'{}': 0}
 
     def get_best_price_all(
             self,
             counts: Dict[str, int]
             ) -> int:
 
-        if counts == {} or max(counts.values()) == 0:
-            return 0
+        if str(counts) in self.best_price_cache:
+            return self.best_price_cache[str(counts)]
+
+        if max(counts.values()) == 0:
+            self.best_price_cache = {str(counts): 0}
+            return self.best_price_cache[str(counts)]
 
         running_prices = []
         for basket_key, basket_price in self.price_table.items():
@@ -155,9 +159,12 @@ class Checkout:
                 remainder = self.subtract(basket, counts)
                 remainder_price = self.get_best_price_all(remainder)
                 running_prices.append(basket_price + remainder_price)
-        return min(running_prices)
+        self.best_price_cache[str(counts)] = min(running_prices)
+        return self.best_price_cache[str(counts)]
 
     def is_subset(self, smaller_set, larger_set):
+        if max(smaller_set) > max(larger_set):
+            return False
         for k, v in smaller_set.items():
             if v > larger_set[k]:
                 return False
@@ -187,4 +194,5 @@ class Checkout:
                 raise ValueError("SKUs should only contain letters that we stock.")
             counts[c] += 1
         return counts
+
 
