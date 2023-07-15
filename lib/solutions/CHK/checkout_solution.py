@@ -20,7 +20,7 @@ def get_best_price_all(
     
 
 def get_best_price(item_info):
-    if item_info["offer"] == None:
+    if not item_info["offer"]:
         return item_info["price"] * item_info["count"]
     
 
