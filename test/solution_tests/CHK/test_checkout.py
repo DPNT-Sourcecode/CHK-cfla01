@@ -45,17 +45,8 @@ class TestCheckout():
         )
         assert chk_r1.get_best_price_all(counts) == correct_answer
 
-    def test_get_best_price(self):
-        info_1 = {"price": 10, "offer": {}}
-        assert checkout_solution.get_best_price(0, info_1) == 0
-
-        info_2 = {"price": 10, "offer": {}}
-        assert checkout_solution.get_best_price(10, info_2) == 100
-
-        info_3 = {"price": 10,
-                  "offer": {"multi": 2, "price": 10}}
-        assert checkout_solution.get_best_price(10, info_3) == 50
-
-        info_4 = {"price": 10,
-                  "offer": {"multi": 2, "price": 10}}
-        assert checkout_solution.get_best_price(11, info_4) == 60
+    def test_get_best_price(self, chk_r1):
+        assert chk_r1.get_best_price("A", 0) == 0
+        assert chk_r1.get_best_price("A", 2) == 100
+        assert chk_r1.get_best_price("A", 3) == 130
+        assert chk_r1.get_best_price("A", 4) == 180

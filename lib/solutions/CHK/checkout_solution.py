@@ -6,6 +6,7 @@ from typing import Dict, Tuple
 def checkout(skus):
     raise NotImplementedError()
 
+
 class Checkout:
     def __init__(self, price_table):
         self.price_table = price_table
