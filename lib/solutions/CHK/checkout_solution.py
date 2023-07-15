@@ -201,11 +201,11 @@ class Checkout:
         self.special_prices_enable = special_prices_enable
         if special_prices_enable:
             self.special_prices = {
-                "X": 17,
+                "Z": 21,
                 "S": 20,
                 "T": 20,
                 "Y": 20,
-                "Z": 21,
+                "X": 17,
             }
 
     def get_best_price_all(
@@ -233,6 +233,9 @@ class Checkout:
     def special_best_price(self):
         if not self.special_prices_enable:
             return 0
+        counter = sum(self.special_counts.values())
+        remainder = 
+        counter = 
 
     def offer_basic_price(self, offer_key):
         counts = self.basket_dicts[offer_key]
@@ -279,4 +282,5 @@ class Checkout:
                 raise ValueError("SKUs should only contain letters that we stock.")
             counts[c] += 1
         return counts
+
 
