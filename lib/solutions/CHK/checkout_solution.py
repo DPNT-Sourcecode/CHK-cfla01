@@ -145,16 +145,19 @@ class Checkout:
             counts: Dict[str, int]
             ) -> int:
 
-        for k, v in counts:
-            if k not in self.has_offers:
-                counts:
-
         if str(counts) in self.best_price_cache:
             return self.best_price_cache[str(counts)]
 
         if max(counts.values()) == 0:
             self.best_price_cache = {str(counts): 0}
             return self.best_price_cache[str(counts)]
+
+        # Optimise by removing items with no offers
+        pre_count = 0
+        for k, v in counts.items():
+            if k not in self.has_offers:
+                pre_count += counts[k] * self.basic_prices[k]
+                counts[k] = 0
 
         running_prices = []
         for basket_key, basket_price in self.price_table.items():
@@ -163,7 +166,7 @@ class Checkout:
                 remainder = self.subtract(basket, counts)
                 remainder_price = self.get_best_price_all(remainder)
                 running_prices.append(basket_price + remainder_price)
-        self.best_price_cache[str(counts)] = min(running_prices)
+        self.best_price_cache[str(counts)] = pre_count = min(running_prices)
         return self.best_price_cache[str(counts)]
 
     def is_subset(self, smaller_set, larger_set):
@@ -202,3 +205,4 @@ class Checkout:
                 raise ValueError("SKUs should only contain letters that we stock.")
             counts[c] += 1
         return counts
+
