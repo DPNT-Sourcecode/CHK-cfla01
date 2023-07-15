@@ -186,9 +186,10 @@ class Checkout:
     def parse_item_names_and_offers(self):
         self.item_names = set()
         self.has_offers = set()
-        for combination in self.price_table.keys():
-            if len(combination) == 1 and combination[1] == 1:
-                combina
+        self.basic_prices = {}
+        for combination, price in self.price_table.items():
+            if len(combination) == 1 and combination[0][1] == 1:
+                self.basic_prices[combination[0][0]] = price
             for name, _ in combination:
                 if name in self.item_names:
                     self.has_offers.add(name)
