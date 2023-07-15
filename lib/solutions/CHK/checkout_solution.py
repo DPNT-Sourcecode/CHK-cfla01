@@ -3,48 +3,52 @@ from typing import Dict, Tuple
 
 def chk_r1_info():
     prices = {
-        (("A", 1),): 50,
-        (("B", 1),): 30,
-        (("C", 1),): 20,
-        (("D", 1),): 15,
+        "A": 50,
+        "B": 30,
+        "C": 20,
+        "D": 15,
     }
     offers = {
         (("A", 3),): 130,
         (("B", 2),): 45,
     }
-    return info
+    return prices, offers
 
 
 def chk_r2_info():
-    info = {
+    prices = {
         (("A", 1),): 50,
-        (("A", 3),): 130,
-        (("A", 5),): 200,
         (("B", 1),): 30,
-        (("B", 2),): 45,
         (("C", 1),): 20,
         (("D", 1),): 15,
         (("E", 1),): 40,
+    }
+    offers = {
+        (("A", 3),): 130,
+        (("A", 5),): 200,
+        (("B", 2),): 45,
         (("E", 2), ("B", 1)): 80,
     }
-    return info
+    return prices, offers
 
 
 def chk_r3_info():
-    info = {
+    prices = {
         (("A", 1),): 50,
-        (("A", 3),): 130,
-        (("A", 5),): 200,
         (("B", 1),): 30,
-        (("B", 2),): 45,
         (("C", 1),): 20,
         (("D", 1),): 15,
         (("E", 1),): 40,
-        (("E", 2), ("B", 1)): 80,
         (("F", 1),): 10,
+    }
+    offers = {
+        (("A", 3),): 130,
+        (("A", 5),): 200,
+        (("B", 2),): 45,
+        (("E", 2), ("B", 1)): 80,
         (("F", 3),): 20,
     }
-    return info
+    return prices, offers
 
 
 def chk_r4_info():
@@ -194,3 +198,4 @@ class Checkout:
                 raise ValueError("SKUs should only contain letters that we stock.")
             counts[c] += 1
         return counts
+
