@@ -60,14 +60,15 @@ class Checkout:
 
     def get_best_price_all(
             self,
-            counts: int
+            counts: Dict[str, int]
             ) -> int:
 
-        if counts in self.best_price_cache:
-            return self.best_price_cache[counts]
+        if str(counts) in self.best_price_cache:
+            return self.best_price_cache[str(counts)]
 
-        if counts == {} or max(counts.values() == 0):
-            return self.best_price_cache[counts]
+        if max(counts.values()) == 0:
+            self.best_price_cache = {str(counts): 0}
+            return self.best_price_cache[str(counts)]
 
         running_prices = []
         for basket_key, basket_price in self.price_table.items():
@@ -76,8 +77,8 @@ class Checkout:
                 remainder = self.subtract(basket, counts)
                 remainder_price = self.get_best_price_all(remainder)
                 running_prices.append(basket_price + remainder_price)
-        self.best_price_cache[counts] = min(running_prices)
-        return self.best_price_cache[counts]
+        self.best_price_cache[str(counts)] = min(running_prices)
+        return self.best_price_cache[str(counts)]
 
     def is_subset(self, smaller_set, larger_set):
         for k, v in smaller_set.items():
@@ -99,6 +100,7 @@ class Checkout:
     def parse_item_names(self):
         self.item_names = set()
         for combination in self.price_table.keys():
+            print(combination)
             for name, _ in combination:
                 self.item_names.add(name)
 
@@ -109,6 +111,7 @@ class Checkout:
                 raise ValueError("SKUs should only contain letters that we stock.")
             counts[c] += 1
         return counts
+
 
 
 
