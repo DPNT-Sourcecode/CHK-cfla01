@@ -33,6 +33,7 @@ class TestCheckout():
         assert checkout_solution.checkout("UUUVVV") == 120 + 130
         assert checkout_solution.checkout("ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ") == 1880
         assert checkout_solution.checkout("EEEEBB") == 160
+        assert checkout_solution.checkout("PPPPQRUVPQRUVPQRUVSU") == 740
 
     def test_checkout_r3(self):
         assert checkout_solution.checkout_r3("AF") == 50 + 10
@@ -81,4 +82,5 @@ class TestCheckout():
             + (5 * 15)
         )
         assert chk_r1.get_best_price_all(counts) == correct_answer
+
 

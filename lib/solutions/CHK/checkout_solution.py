@@ -5,7 +5,8 @@ from typing import Dict, Tuple
 # You have to manually ensure that the input information is ordered
 # such that better offers are listed before worse ones. This is a
 # problem for obvious reasons. However, I have already been doing this
-# for much too long. In final round I will attempt to fix this problem.
+# for much too long. In final round I might attempt to fix the problem.
+# If you are reading this then I didn't.
 
 def chk_r1_info():
     info = {
@@ -80,9 +81,9 @@ def chk_r4_info():
         (("P", 1),): 50,
         (("P", 5),): 200,
         (("Q", 1),): 30,
+        (("R", 3), ("Q", 1)): 150,
         (("Q", 3),): 80,
         (("R", 1),): 50,
-        (("R", 3), ("Q", 1)): 150,
         (("S", 1),): 30,
         (("T", 1),): 20,
         (("U", 1),): 40,
@@ -207,5 +208,6 @@ class Checkout:
                 raise ValueError("SKUs should only contain letters that we stock.")
             counts[c] += 1
         return counts
+
 
 
