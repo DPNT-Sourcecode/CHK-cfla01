@@ -137,12 +137,6 @@ def chk_r5_info():
         (("V", 3),): 130,
         (("V", 2),): 90,
         (("W", 1),): 20,
-
-        (("S", 1),): 30,
-        (("T", 1),): 20,
-        (("X", 1),): 90,
-        (("Y", 1),): 10,
-        (("Z", 1),): 50,
     }
     return info
 
@@ -198,11 +192,20 @@ class Checkout:
     def __init__(
             self,
             price_table: Dict[Tuple, int]
+            special_prices_enable=False
             ):
         self.price_table = price_table
         self.parse_item_names_and_offers()
         self.parse_basket_dicts()
         self.best_price_cache = {'{}': 0}
+        if special_prices_enable:
+            self.special_prices = {
+                "X": 17,
+                "S": 20,
+                "T": 20,
+                "Y": 20,
+                "Z": 21,
+            }
 
     def get_best_price_all(
             self,
@@ -264,8 +267,3 @@ class Checkout:
                 raise ValueError("SKUs should only contain letters that we stock.")
             counts[c] += 1
         return counts
-
-
-
-
-

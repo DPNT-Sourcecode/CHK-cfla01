@@ -85,6 +85,3 @@ class TestCheckout():
             + (5 * 15)
         )
         assert chk_r1.get_best_price_all(counts) == correct_answer
-
-
-
