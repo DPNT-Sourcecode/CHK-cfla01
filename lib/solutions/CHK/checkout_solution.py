@@ -16,8 +16,8 @@ def chk_r1_info():
 def chk_r2_info():
     info = {
         (("A", 1),): 50,
-        (("A", 3),): 130,
         (("A", 5),): 200,
+        (("A", 3),): 130,
         (("B", 1),): 30,
         (("B", 2),): 45,
         (("C", 1),): 20,
@@ -31,8 +31,8 @@ def chk_r2_info():
 def chk_r3_info():
     info = {
         (("A", 1),): 50,
-        (("A", 3),): 130,
         (("A", 5),): 200,
+        (("A", 3),): 130,
         (("B", 1),): 30,
         (("B", 2),): 45,
         (("C", 1),): 20,
@@ -145,19 +145,16 @@ class Checkout:
             self,
             counts: Dict[str, int]
             ) -> int:
-
-        if str(counts) in self.best_price_cache:
-            return self.best_price_cache[str(counts)]
-
-        # Optimise by pre_counting and subtracting offers afterwards
-        pre_count = sum([counts[k] * self.basic_prices[k] for k in counts.keys()])
-        for offer_key, offer_price in self.offer_prices:
+        # Optimise by pre-counting and subtracting offers afterwards
+        price = sum([counts[k] * self.basic_prices[k] for k in counts.keys()])
+        for offer_key, offer_price in self.offer_prices.items():
             savings = self.offer_basic_price(offer_key) - offer_price
             offer_multiplier = 0
             while self.is_subset(self.basket_dicts[offer_key], counts):
                 offer_multiplier += 1
                 counts = self.subtract(self.basket_dicts[offer_key], counts)
-        return pre_count
+            price -= offer_multiplier * savings
+        return price
 
     def offer_basic_price(self, offer_key):
         counts = self.basket_dicts[offer_key]
@@ -204,11 +201,3 @@ class Checkout:
                 raise ValueError("SKUs should only contain letters that we stock.")
             counts[c] += 1
         return counts
-
-
-
-
-
-
-
-
