@@ -4,7 +4,24 @@ from typing import Dict, Tuple
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus):
-    raise NotImplementedError()
+    offer_A = {"multi": 3, "price": 130}
+    info_A = {"price": 50, "offer": offer_A}
+
+    offer_B = {"multi": 2, "price": 45}
+    info_B = {"price": 30, "offer": offer_B}
+
+    info_C = {"count": 5, "price": 20, "offer": {}}
+    info_D = {"price": 15, "offer": {}}
+
+    info = {
+        "A": info_A,
+        "B": info_B,
+        "C": info_C,
+        "D": info_D,
+    }
+
+    chk_r1 = checkout_solution.Checkout(info)
+    return 0
 
 
 class Checkout:
@@ -48,3 +65,4 @@ class Checkout:
             for name, count in counts.items()
         ]
         return sum(best_prices)
+
