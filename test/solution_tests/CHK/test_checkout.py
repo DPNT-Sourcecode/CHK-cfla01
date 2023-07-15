@@ -37,9 +37,7 @@ class TestCheckout():
             + (5 * 20)
             + (5 * 15)
         )
-        with pytest.raises(Exception):
-            checkout_solution.get_best_price_all(counts, info)
-        #assert checkout_solution.get_best_price_all(counts, info) == correct_answer
+        assert checkout_solution.get_best_price_all(counts, info) == correct_answer
 
     def test_get_best_price(self):
         info_1 = {"price": 10, "offer": {}}
@@ -55,3 +53,4 @@ class TestCheckout():
         info_4 = {"price": 10,
                   "offer": {"multi": 2, "price": 10}}
         assert checkout_solution.get_best_price(11, info_4) == 60
+

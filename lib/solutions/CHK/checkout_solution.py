@@ -6,8 +6,12 @@ from typing import Dict, Tuple
 def checkout(skus):
     raise NotImplementedError()
 
+class Checkout:
+    def __init__(price_table):
+        self.price_table = price_table
 
-def get_best_price(item_count, item_info):
+
+def get_best_price(self, item_name, count):
     if not item_info["offer"]:
         return item_info["price"] * item_count
 
@@ -33,8 +37,12 @@ def get_best_price_all(
     #
     # checkout_counts is a Dict of "item": item_counts
     best_prices = [
-        get_best_price 
+        get_best_price(
+            checkout_counts[item_name],
+            checkout_info[item_name]
+            )
         for item_name in checkout_counts.keys()
     ]
-    raise NotImplementedError()
+    return sum(best_prices)
+
 
