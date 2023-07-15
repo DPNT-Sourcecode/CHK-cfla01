@@ -237,6 +237,10 @@ class Checkout:
         remainder = counter % 3
         counter -= remainder
         buy3value = (counter // 3) * 45
+        for k in self.special_counts.keys():
+            if self.special_counts[k] <= counter:
+                counter -= self.special_counts[k]
+
 
     def offer_basic_price(self, offer_key):
         counts = self.basket_dicts[offer_key]
@@ -283,6 +287,7 @@ class Checkout:
                 raise ValueError("SKUs should only contain letters that we stock.")
             counts[c] += 1
         return counts
+
 
 
 
